@@ -18,7 +18,6 @@ class Engine(
     init {
         addSystem(MovementSystem(screenRect))
         addSystem(renderingSystem)
-        //addSystem(WallsSystem(screenRect))
     }
 
     fun dispose() {

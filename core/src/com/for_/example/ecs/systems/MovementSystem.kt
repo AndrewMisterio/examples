@@ -40,29 +40,29 @@ class MovementSystem(
         bodyComponent: BodyComponent,
         deltaTime: Float
     ) {
-        bodyComponent.shape.x += velocityComponent.x * deltaTime
-        bodyComponent.shape.y += velocityComponent.y * deltaTime
+        bodyComponent.rectangle.x += velocityComponent.x * deltaTime
+        bodyComponent.rectangle.y += velocityComponent.y * deltaTime
         when {
-            horizontalCollision(bodyComponent) -> {
+            hasHorizontalCollision(bodyComponent) -> {
                 velocityComponent.x *= -1
-                bodyComponent.shape.x = positionComponent.x
+                bodyComponent.rectangle.x = positionComponent.x
             }
-            verticalCollision(bodyComponent) -> {
+            hasVerticalCollision(bodyComponent) -> {
                 velocityComponent.y *= -1
-                bodyComponent.shape.y = positionComponent.y
+                bodyComponent.rectangle.y = positionComponent.y
             }
             else -> {
-                positionComponent.x = bodyComponent.shape.x
-                positionComponent.y = bodyComponent.shape.y
+                positionComponent.x = bodyComponent.rectangle.x
+                positionComponent.y = bodyComponent.rectangle.y
             }
         }
     }
 
-    private fun horizontalCollision(bodyComponent: BodyComponent) =
-        bodyComponent.shape.x < screenRect.x ||
-                (bodyComponent.shape.x + bodyComponent.shape.width) > (screenRect.x + screenRect.width)
+    private fun hasHorizontalCollision(bodyComponent: BodyComponent) =
+        bodyComponent.rectangle.x < screenRect.x ||
+                (bodyComponent.rectangle.x + bodyComponent.rectangle.width) > (screenRect.x + screenRect.width)
 
-    private fun verticalCollision(bodyComponent: BodyComponent) =
-        bodyComponent.shape.y < screenRect.y ||
-                (bodyComponent.shape.y + bodyComponent.shape.height) > (screenRect.y + screenRect.height)
+    private fun hasVerticalCollision(bodyComponent: BodyComponent) =
+        bodyComponent.rectangle.y < screenRect.y ||
+                (bodyComponent.rectangle.y + bodyComponent.rectangle.height) > (screenRect.y + screenRect.height)
 }

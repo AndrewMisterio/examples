@@ -57,11 +57,11 @@ class ForExampleGame : ApplicationAdapter() {
             z = 0f
         })
         entity.add(engine.createComponent(BodyComponent::class.java).apply {
-            shape.setWidth(WIDTH)
-            shape.setHeight(HEIGHT)
+            rectangle.setWidth(WIDTH)
+            rectangle.setHeight(HEIGHT)
         })
         entity.add(engine.createComponent(TextureComponent::class.java).apply {
-            sprite = Texture("bg.png")
+            texture = Texture("bg.png")
         })
     }
 
@@ -70,11 +70,11 @@ class ForExampleGame : ApplicationAdapter() {
             z = 1f
         })
         entity.add(engine.createComponent(BodyComponent::class.java).apply {
-            shape.setWidth(100f)
-            shape.setHeight(100f)
+            rectangle.setWidth(100f)
+            rectangle.setHeight(100f)
         })
         entity.add(engine.createComponent(TextureComponent::class.java).apply {
-            sprite = Texture("badlogic.jpg")
+            texture = Texture("badlogic.jpg")
         })
         entity.add(engine.createComponent(VelocityComponent::class.java).apply {
             x = -80f

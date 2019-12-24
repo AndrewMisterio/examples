@@ -7,9 +7,8 @@ import com.badlogic.ashley.systems.SortedIteratingSystem
 import com.badlogic.gdx.graphics.Camera
 import com.badlogic.gdx.graphics.g2d.Batch
 import com.for_.example.ecs.components.BodyComponent
-import com.for_.example.ecs.components.PositionComponent
 import com.for_.example.ecs.components.TextureComponent
-import com.for_.example.ecs.entityCompare
+import com.for_.example.ecs.compareEntityByPosition
 import com.for_.example.ecs.notNull
 
 class RenderingSystem(
@@ -17,7 +16,7 @@ class RenderingSystem(
     private val camera: Camera
 ) : SortedIteratingSystem(
     Family.all(BodyComponent::class.java, TextureComponent::class.java).get(),
-    Comparator(::entityCompare)
+    Comparator(::compareEntityByPosition)
 ) {
 
     private val bodyComponentMapper = ComponentMapper.getFor(BodyComponent::class.java)
@@ -41,12 +40,12 @@ class RenderingSystem(
     fun dispose() {
         batch.dispose()
         entities.forEach {
-            textureComponentMapper[it]?.sprite?.dispose()
+            textureComponentMapper[it]?.texture?.dispose()
         }
     }
 
     private fun render(bodyComponent: BodyComponent, textureComponent: TextureComponent) {
-        val shape = bodyComponent.shape
-        batch.draw(textureComponent.sprite, shape.x, shape.y, shape.width, shape.height)
+        val shape = bodyComponent.rectangle
+        batch.draw(textureComponent.texture, shape.x, shape.y, shape.width, shape.height)
     }
 }

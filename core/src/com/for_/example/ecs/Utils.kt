@@ -2,10 +2,9 @@ package com.for_.example.ecs
 
 import com.badlogic.ashley.core.ComponentMapper
 import com.badlogic.ashley.core.Entity
-import com.badlogic.ashley.core.EntitySystem
 import com.for_.example.ecs.components.PositionComponent
 
-fun entityCompare(e1: Entity, e2: Entity): Int {
+fun compareEntityByPosition(e1: Entity, e2: Entity): Int {
     val mapper = ComponentMapper.getFor(PositionComponent::class.java)
     val z1 = mapper[e1]?.z?:0f
     val z2 = mapper[e2]?.z?:0f
