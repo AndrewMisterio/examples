@@ -42,28 +42,20 @@ class MovementSystem(
     ) {
         bodyComponent.shape.x += velocityComponent.x * deltaTime
         bodyComponent.shape.y += velocityComponent.y * deltaTime
-        if (!checkCollisions(bodyComponent, velocityComponent)) {
-            positionComponent.x = bodyComponent.shape.x
-            positionComponent.y = bodyComponent.shape.y
-        } else {
-            bodyComponent.shape.x = positionComponent.x
-            bodyComponent.shape.y = positionComponent.y
+        when {
+            horizontalCollision(bodyComponent) -> {
+                velocityComponent.x *= -1
+                bodyComponent.shape.x = positionComponent.x
+            }
+            verticalCollision(bodyComponent) -> {
+                velocityComponent.y *= -1
+                bodyComponent.shape.y = positionComponent.y
+            }
+            else -> {
+                positionComponent.x = bodyComponent.shape.x
+                positionComponent.y = bodyComponent.shape.y
+            }
         }
-    }
-
-    private fun checkCollisions(
-        bodyComponent: BodyComponent,
-        velocityComponent: VelocityComponent
-    ): Boolean = when {
-        horizontalCollision(bodyComponent) -> {
-            velocityComponent.x *= -1
-            true
-        }
-        verticalCollision(bodyComponent) -> {
-            velocityComponent.y *= -1
-            true
-        }
-        else -> false
     }
 
     private fun horizontalCollision(bodyComponent: BodyComponent) =
